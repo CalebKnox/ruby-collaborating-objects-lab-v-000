@@ -1,20 +1,18 @@
 require 'pry'
 
 class MP3Importer
+
+  attr_accessor :path
+
   def initialize(path)
-    @@path = path
-    self.files
-  end
-  @@files = []
-  def path
-    @@path
+    @path = path
   end
 
   def files
-    @@files = Dir.entries(path).delete_if {|file| file.length < 5}
+    @files = Dir.entries(path).delete_if{|file| file.size < 5}
   end
 
   def import
-    @@files.each {|file_name| Song.new_by_filename(file_name)}
+    files.each {|file| Song.new_by_filename(file)}
   end
-  end
+end
